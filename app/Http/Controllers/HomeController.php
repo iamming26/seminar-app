@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\JobModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,25 +27,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $jobs = JobModel::orderBy('created_at')->get();
-        $applied = (Auth::user()) ? DB::table('applies')->where('user_id', Auth::user()->id)->pluck('job_id')->toArray() : [];
+        $events = Event::orderBy('created_at')->get();
+        $applied = (Auth::user()) ? DB::table('registrations')->where('user_id', Auth::user()->id)->pluck('event_id')->toArray() : [];
 
-        $jobs = $jobs->map(function($job) use ($applied){
+        $events = $events->map(function($event) use ($applied){
             return (object) [
-                'id' => $job->id,
-                'instation' => $job->instation,
-                'position' => $job->position,
-                'desc' => $job->desc,
-                'selection' => $job->selection,
-                'start' => $job->start,
-                'end' => $job->end,
-                'notes' => $job->notes,
-                'status' => (in_array($job->id, $applied)) ? true : false
+                'id' => $event->id,
+                'instation' => $event->title,
+                'position' => $event->keynote_speaker,
+                'desc' => $event->description,
+                'selection' => $event->selection,
+                'start' => $event->start,
+                'end' => $event->end,
+                'notes' => $event->notes,
+                'status' => (in_array($event->id, $applied)) ? true : false
             ];
         });
         
         return view('home', [
-            'jobs' => $jobs
+            'jobs' => $events
         ]);
     }
 }

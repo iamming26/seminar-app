@@ -47,11 +47,10 @@
     <main>
         <div class="container d-flex justify-content-center" style="margin-top: 10vh;">
             <div class="card" style="width: 18rem;">
-                {{-- <img src="https://codingyaar.com/wp-content/uploads/bootstrap-profile-card-image.jpg" class="card-img-top" alt="..."> --}}
-                <img src="{{ asset('ucon.jpeg') }}" class="card-img-top" alt="...">
+                <img src="{{ asset('haidar.jpeg') }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Muhammad Yusron</h5>
-                  <p class="card-text">191011401636</p>
+                  <h5 class="card-title">Muhammad Haidar Mubarok</h5>
+                  <p class="card-text">191011401686</p>
                   <p class="card-text">Teknik Informatika</p>
                   <p class="card-text">Universitas Pamulang</p>
                   <a href="{{ route('home') }}" class="btn btn-primary">Pergi Ke Aplikasi</a>

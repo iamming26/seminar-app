@@ -18,20 +18,20 @@ class HistoryController extends Controller
 
     public function history()
     {
-        $applies = DB::table('applies')
-                        ->join('jobs', 'applies.job_id', '=', 'jobs.id')
-                        ->where('user_id', Auth::user()->id)
+        $applies = DB::table('register_events')
+                        ->join('events', 'register_events.id', '=', 'events.id')
+                        ->where('student_id', Auth::user()->id)
                         ->get();
 
-                        $applies = $applies->map(function($data){
+        $applies = $applies->map(function($data){
             return (object) [
                 'id' => $data->id,
-                'instation' => $data->instation,
-                'position' => $data->position,
-                'desc' => $data->desc,
+                'instation' => $data->title,
+                'position' => $data->keynote_speaker    ,
+                'desc' => $data->description,
                 'start' => $data->start,
                 'end' => $data->end,
-                'selection' => $data->selection,
+                'selection' => Carbon::parse($data->date)->format('d-m-Y'),
                 'apply_date' => Carbon::parse($data->created_at)->format('d-m-Y'),
             ];
         });
@@ -43,7 +43,7 @@ class HistoryController extends Controller
 
     public function delete(Request $request)
     {
-        $data = DB::table('applies')->delete($request->id);
+        $data = DB::table('register_events')->delete($request->id);
 
         return redirect()->back()->with('success', 'Berhasil Dihapus !');
     }

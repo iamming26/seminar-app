@@ -15,10 +15,30 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <style>
+        main{
+            height: 100vh;
+            padding-top: 2vh;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: none;
+            text-align: end;
+        }
+        .dataTables_wrapper .dataTables_filter label{
+            float: none;
+            text-align: start;
+        }
+
+        .dataTables_paginate .paging_simple_numbers{
+            float: none;
+            text-align: end;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-gradient fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -57,17 +77,20 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                                     @if (Auth::user()->type == 'user')
-                                    <a href="#" class="dropdown-item">
+                                    {{-- <a href="#" class="dropdown-item">
                                         Profil
-                                    </a>
+                                    </a> --}}
                                     <a href="{{ route('user.history') }}" class="dropdown-item">
-                                        Riwayat Lamaran
+                                        Riwayat Pendaftaran
                                     </a>
                                     @endif
 
                                     @if (Auth::user()->type == 'admin')
                                     <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
                                         Dashboard
+                                    </a>
+                                    <a href="{{ route('admin.event') }}" class="dropdown-item">
+                                        Daftar Acara
                                     </a>
                                     @endif
                                     
@@ -88,9 +111,25 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 bg-primary bg-gradient" style="margin-top: 50px;">
             @yield('content')
         </main>
+        
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable( {
+            language: {
+            searchPlaceholder: "Keyword...",
+            search: "Search",
+            }
+        });
+    });
+    </script>
 </body>
 </html>

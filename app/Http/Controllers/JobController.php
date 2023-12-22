@@ -14,9 +14,9 @@ class JobController extends Controller
         $job_id = $request->job_id;
         $user_id = Auth::user()->id;
 
-        DB::table('applies')->insert([
-            'user_id' => $user_id,
-            'job_id' => $job_id,
+        DB::table('register_events')->insert([
+            'student_id' => $user_id,
+            'event_id' => $job_id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

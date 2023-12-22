@@ -6,17 +6,17 @@
             <div class="col-md-12">
                 @include('components.alerts')
                 <div class="card mb-3">
-                    <img src="https://dummyimage.com/1200x80/000/fff" class="card-img-top" alt="...">
+                    <img src="https://dummyimage.com/1200x80/000/fff&text=Riwayat Pendaftaran" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Pekerjaan yang dilamar:</h5>
+                      <h5 class="card-title">Acara yang didaftar:</h5>
                       <table class="table table-stripped">
                         <thead>
                           <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Instansi</th>
-                            <th scope="col">Posisi</th>
-                            <th scope="col">Tanggal Melamar</th>
-                            <th scope="col">Pelaksanaan Tes</th>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Pembicara</th>
+                            <th scope="col">Tanggal Mendaftar</th>
+                            <th scope="col">Pelaksanaan Seminar</th>
                             <th scope="col">Tindakan</th>
                           </tr>
                         </thead>
@@ -47,14 +47,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5 class="mb-2">Persyaratan:</h5>
                                         {!! $job->desc !!}
                                         <h5 class="mt-2">Periode Pendaftaran:</h5>
                                         <p>{{ \Carbon\Carbon::parse($job->start)->format('d-m-Y') }} s.d. {{ \Carbon\Carbon::parse($job->end)->format('d-m-Y') }}</p>
-                                        <h5 class="mt-2">Pelaksanaan Tes:</h5>
+                                        <h5 class="mt-2">Pelaksanaan Seminar:</h5>
                                         <p>{{ \Carbon\Carbon::parse($job->selection)->format('d-m-Y') ?? '*menyusul' }}</p>
-                                        <h5 class="mt-2">Catatan:</h5>
-                                        <p>{{ $job->notes ?? '-' }}</p>
+                                        
                                     </div>
                                 </div>
                                 </div>

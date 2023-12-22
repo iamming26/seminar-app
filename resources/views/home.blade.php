@@ -10,10 +10,9 @@
         @foreach ($jobs as $job)
         <div class="col-md-4 mb-4">
             <div class="card" style="">
-                <img src="https://dummyimage.com/600x400/000/fff" class="card-img-top" alt="...">
+                <img src="https://dummyimage.com/600x400/000/fff&text={{ $job->instation }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ $job->instation }}</h5>
-                    <p class="card-text">{{ $job->position }}</p>
                 </div>
                 <div class="card-body">
                     @if (Route::has('login'))
@@ -24,10 +23,10 @@
                             @csrf
                             <input type="hidden" name="job_id" value="{{ $job->id }}">
                             @if ($job->status)
-                            <button type="button" class="btn btn-sm btn-warning">Sudah Melamar</button>
+                            <button type="button" class="btn btn-sm btn-warning">Sudah Mendaftar</button>
                             @else
                                 @if (Auth::user()->type != 'admin')
-                                <button type="submit" class="btn btn-sm btn-primary">Lamar</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Daftar</button>
                                 @endif
                             @endif
                             </form>
@@ -47,14 +46,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="mb-2">Persyaratan:</h5>
                     {!! $job->desc !!}
+                    <h5 class="mt-2">Pembicara:</h5>
+                    <p>{{ $job->position }}</p>
                     <h5 class="mt-2">Periode Pendaftaran:</h5>
                     <p>{{ \Carbon\Carbon::parse($job->start)->format('d-m-Y') }} s.d. {{ \Carbon\Carbon::parse($job->end)->format('d-m-Y') }}</p>
-                    <h5 class="mt-2">Pelaksanaan Tes:</h5>
+                    <h5 class="mt-2">Pelaksanaan Seminar:</h5>
                     <p>{{ \Carbon\Carbon::parse($job->selection)->format('d-m-Y') ?? '*menyusul' }}</p>
-                    <h5 class="mt-2">Catatan:</h5>
-                    <p>{{ $job->notes ?? '-' }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>

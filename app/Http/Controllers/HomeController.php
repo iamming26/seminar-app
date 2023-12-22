@@ -7,6 +7,7 @@ use App\Models\JobModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeController extends Controller
 {
@@ -28,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $events = Event::orderBy('created_at')->get();
-        $applied = (Auth::user()) ? DB::table('registrations')->where('user_id', Auth::user()->id)->pluck('event_id')->toArray() : [];
+        $applied = (Auth::user()) ? DB::table('register_events')->where('student_id', Auth::user()->id)->pluck('event_id')->toArray() : [];
 
         $events = $events->map(function($event) use ($applied){
             return (object) [
